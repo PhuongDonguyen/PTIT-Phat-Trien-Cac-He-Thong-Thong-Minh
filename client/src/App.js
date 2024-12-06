@@ -1,0 +1,75 @@
+import './App.css';
+import {
+  createBrowserRouter,
+  RouterProvider,
+  Outlet
+} from 'react-router-dom';
+import ChatBot from "react-chatbot-kit";
+import ActionProvider from './chatbot/ActionProvider';
+import MessageParser from './chatbot/MessageParser';
+import config from './configs/chatbotConfig';
+import 'react-chatbot-kit/build/main.css';
+/* Routes */
+/* Basic components */
+import Navbar from './components/Navbar';
+import Footer from './components/Footer';
+/* Page components */
+import Home from './pages/Home';
+import { useState } from 'react';
+import ProductDetail from './pages/ProductDetail';
+
+/* ====== Layout ====== */
+const Layout = () => {
+  const [showChatBot, setShowChatBot] = useState(false);
+
+  const toggleChatBot = () => {
+    setShowChatBot((prev) => !prev);
+  };
+
+  return (
+    <>
+      <Navbar />
+      <Outlet />
+      <div className="chatbot-container">
+        {showChatBot && (
+          <div className="chatbot">
+            <ChatBot
+              config={config}
+              actionProvider={ActionProvider}
+              messageParser={MessageParser}
+            />
+          </div>
+        )}
+        <button className="chatbot-toggle" onClick={toggleChatBot}>
+          <i class="bi bi-robot"></i>
+        </button>
+      </div>
+      <Footer />
+    </>
+  );
+};
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Layout />,
+    children: [
+      {
+        path: "",
+        element: <Home />
+      }, 
+      {
+        path: "/:motocycleTypeId/:productCode",
+        element: <ProductDetail />
+      }
+    ]
+  }
+])
+
+function App() {
+  return (
+    <RouterProvider router={router} />
+  );
+}
+
+export default App;
