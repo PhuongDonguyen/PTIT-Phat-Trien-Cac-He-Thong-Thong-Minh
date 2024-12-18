@@ -23,7 +23,7 @@ const Banner = () => {
                             motorcycleTypes.map((type, index) => (
                                 <Link
                                     key={index}
-                                    to="/second-link"
+                                    to={`/${type.MaLoai}`}
                                     className="list-group-item list-group-item-action"
                                 >
                                     {type.TenLoai}

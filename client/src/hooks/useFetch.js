@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-const useFetch = (url, options = {}, trigger = null) => {
+const useFetch = (url, options = {}) => {
+    const { page = 1, limit = 10 } = options;
     const [data, setData] = useState(null);
+    const [pagination, setPagination] = useState(null);
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
 
@@ -10,13 +12,21 @@ const useFetch = (url, options = {}, trigger = null) => {
         const fetchData = async () => {
             setLoading(true);
             setError(null);
+
+            setData(null);
+
             try {
-                const response = await axios({
-                    url,
-                    ...options,
+                const response = await axios.get(url, {
+                    params: {
+                        page,
+                        limit,
+                    },
                 });
-                setData(response.data);
+                const { data: items, pagination } = response.data;
+                setData(items);
+                setPagination(pagination);
             } catch (err) {
+                console.log(err);
                 setError(err.message);
             } finally {
                 setLoading(false);
@@ -24,10 +34,10 @@ const useFetch = (url, options = {}, trigger = null) => {
         };
 
         // Trigger the fetch if the URL is provided
-        if (url) fetchData();
-    }, [url, JSON.stringify(options), trigger]);
+        fetchData();
+    }, [url, page, limit]);
 
-    return { data, error, loading };
+    return { data, pagination, error, loading };
 };
 
 export default useFetch;

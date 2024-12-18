@@ -8,14 +8,14 @@ import Tooltip from "@mui/material/Tooltip"; // Import Tooltip from Material-UI
 import { Box } from "@mui/material"; // For layout and styling
 
 const ProductDetail = () => {
-    const { motocycleTypeId, productCode } = useParams();
+    const { motorcycleTypeId, productCode } = useParams();
     const [recentlyViewed, setRecentlyViewed] = useState([]);
     const [searchParams] = useSearchParams();
     const color = searchParams.get("color");
     const navigate = useNavigate();
 
     // Fetch motorcycle type and product details
-    const { data: motorcycleType } = useFetch(`${process.env.REACT_APP_SERVER_API_URL}/motorcycleTypes/${motocycleTypeId}`);
+    const { data: motorcycleType } = useFetch(`${process.env.REACT_APP_SERVER_API_URL}/motorcycleTypes/${motorcycleTypeId}`);
     const { data: productDetails, error, loading } = useFetch(
         `${process.env.REACT_APP_SERVER_API_URL}/detailInventoryMotorcycles?motorcycleId=${productCode.split('-')[0]}&versionId=${productCode.split('-')[1]}${color ? `&color=${color}` : ""}`
     );
@@ -45,7 +45,7 @@ const ProductDetail = () => {
     }));
 
     const handleColorClick = (color) => {
-        navigate(`/${motocycleTypeId}/${productCode}?color=${encodeURIComponent(color.code)}`);
+        navigate(`/${motorcycleTypeId}/${productCode}?color=${encodeURIComponent(color.code)}`);
     };
 
     return (

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Slider from "react-slick"; // Import react-slick carousel
 import PropTypes from "prop-types"; // For prop validation
 import "./ProductCategory.css";
@@ -53,6 +53,10 @@ ProductCard.propTypes = {
 // Main ProductCategory component
 const ProductCategory = ({ categoryId, categoryName }) => {
     const { data: products, error, loading } = useFetch(`${process.env.REACT_APP_SERVER_API_URL}/inventoryMotorcycles/${categoryId}`);
+
+    useEffect(() => {   
+        console.log(products);
+    }, [products]);
 
     const settings = {
         autoplay: true,

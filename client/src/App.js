@@ -17,6 +17,8 @@ import Footer from './components/Footer';
 import Home from './pages/Home';
 import { useState } from 'react';
 import ProductDetail from './pages/ProductDetail';
+import ProductCategory from './pages/ProductCategory';
+import AllProducts from './pages/AllProducts';
 
 /* ====== Layout ====== */
 const Layout = () => {
@@ -37,6 +39,7 @@ const Layout = () => {
               config={config}
               actionProvider={ActionProvider}
               messageParser={MessageParser}
+              placeholderText='Hãy nhập tin nhắn của bạn'
             />
           </div>
         )}
@@ -57,9 +60,17 @@ const router = createBrowserRouter([
       {
         path: "",
         element: <Home />
-      }, 
+      },
       {
-        path: "/:motocycleTypeId/:productCode",
+        path: "/san-pham",
+        element: <AllProducts />
+      },
+      {
+        path: "/:motorcycleTypeId",
+        element: <ProductCategory />
+      },
+      {
+        path: "/:motorcycleTypeId/:productCode",
         element: <ProductDetail />
       }
     ]
