@@ -1,3 +1,6 @@
+import React from 'react';
+import parse from 'html-react-parser';
+
 class ActionProvider {
     constructor(createChatBotMessage, setStateFunc) {
         this.createChatBotMessage = createChatBotMessage;
@@ -27,23 +30,26 @@ class ActionProvider {
 
             const data = await response.json();
 
-            console.log("Response message:", data);
-
             // Remove typing indicator
             this.setState((prevState) => ({
                 ...prevState,
                 messages: prevState.messages.filter((msg) => msg.id !== "typing-indicator"),
             }));
 
-            // Add bot messages with delay
+            // Add bot messages with HTML parsing
             data.forEach((botMessage, index) => {
                 setTimeout(() => {
-                    const message = this.createChatBotMessage(botMessage.text, { withAvatar: true });
+                    const parsedHTML = parse(botMessage.text); // parse HTML from the bot
+                    const message = this.createChatBotMessage("", {
+                        withAvatar: true,
+                        widget: "customHTML",
+                    });
+                    message.message = parsedHTML;
                     this.setState((prevState) => ({
                         ...prevState,
                         messages: [...prevState.messages, message],
                     }));
-                }, index * 2000); // 1-second delay between messages
+                }, index * 2000);
             });
         } catch (error) {
             console.error("Error communicating with Rasa server:", error);

@@ -33,18 +33,17 @@ const Layout = () => {
       <Navbar />
       <Outlet />
       <div className="chatbot-container">
-        {showChatBot && (
-          <div className="chatbot">
-            <ChatBot
-              config={config}
-              actionProvider={ActionProvider}
-              messageParser={MessageParser}
-              placeholderText='Hãy nhập tin nhắn của bạn'
-            />
-          </div>
-        )}
+        {/* ChatBot is always in the DOM */}
+        <div className={`chatbot ${showChatBot ? 'visible' : 'hidden'}`}>
+          <ChatBot
+            config={config}
+            actionProvider={ActionProvider}
+            messageParser={MessageParser}
+            placeholderText='Hãy nhập tin nhắn của bạn'
+          />
+        </div>
         <button className="chatbot-toggle" onClick={toggleChatBot}>
-          <i class="bi bi-robot"></i>
+          <i className="bi bi-robot"></i>
         </button>
       </div>
       <Footer />

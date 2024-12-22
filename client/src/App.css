@@ -60,3 +60,20 @@
   color: #adb5bd;
   /* Makes the small text dimmer */
 }
+
+/* Hide chatbot when the class "hidden" is present */
+.chatbot.hidden {
+  display: none;
+}
+
+/* Show chatbot when "visible" class is present */
+.chatbot.visible {
+  display: block;
+}
+
+.chatbot {
+  position: fixed;
+  bottom: 90px;
+  right: 20px;
+  z-index: 1000;
+}
