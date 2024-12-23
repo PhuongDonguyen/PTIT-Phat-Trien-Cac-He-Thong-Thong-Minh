@@ -55,7 +55,7 @@ const ProductCategory = () => {
                                         src={motorcycle.Anh}
                                         className="card-img-top"
                                         alt={motorcycle.TenXe}
-                                        style={{ height: '230px', objectFit: 'cover' }}
+                                        style={{ height: '230px', objectFit: 'contain' }}
                                     />
                                     <div className="card-body">
                                         <h5 className="card-title">{motorcycle.TenXe}</h5>

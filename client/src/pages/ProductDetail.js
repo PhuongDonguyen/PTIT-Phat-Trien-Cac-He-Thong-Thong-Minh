@@ -12,7 +12,7 @@ const saveToRecentlyViewed = (product) => {
     const updatedProducts = [
         product,
         ...storedProducts.filter((item) => item.id !== product.id),
-    ].slice(0, 3); // Limit to 3 products
+    ].slice(0, 4); // Limit to 3 products
     localStorage.setItem("recentlyViewed", JSON.stringify(updatedProducts));
 };
 
@@ -149,12 +149,12 @@ const ProductDetail = () => {
                                         src={product.image}
                                         alt={product.name}
                                         className="rounded me-3"
-                                        style={{ width: "80px", height: "80px", objectFit: "cover" }}
+                                        style={{ width: "80px", height: "80px", objectFit: "contain" }}
                                     />
                                     <div className="flex-grow-1">
-                                        <h5 className="mb-1">{product.name}</h5>
+                                        <h6 className="mb-1">{product.name}</h6>
                                         <p className="mb-1 text-danger">
-                                            {product.price ? `${product.price.toLocaleString()}₫` : "Liên hệ"}
+                                            {product.price ? `${product.price.toLocaleString()}` : "Liên hệ"}
                                         </p>
                                         <small className="text-muted">Click để xem chi tiết</small>
                                     </div>
