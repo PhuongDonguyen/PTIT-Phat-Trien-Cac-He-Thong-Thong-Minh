@@ -1,0 +1,33 @@
+version: "3.1"
+
+rules:
+
+- rule: Say goodbye anytime the user says goodbye
+  steps:
+  - intent: goodbye
+  - action: utter_goodbye
+
+- rule: Say 'I am a bot' anytime the user challenges
+  steps:
+  - intent: bot_challenge
+  - action: utter_iamabot
+
+- rule: Say 'hello
+  steps:
+  - intent: greet
+  - action: utter_greet
+
+- rule: Reset slots
+  steps:
+    - intent: ask_for_another_vehicle
+    - action: action_reset_slots
+
+- rule: Respond to search_vehicle intent
+  steps:
+  - intent: search_vehicle
+  - action: utter_search_vehicle
+
+- rule: response to thank
+  steps: 
+  - intent: thank
+  - action: utter_response_thank
